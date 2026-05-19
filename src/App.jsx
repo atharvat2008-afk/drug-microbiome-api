@@ -1,24 +1,24 @@
 const sampleRows = [
   {
-    drug: "5-Fluorouracil",
-    microbe: "Example strain A",
-    interaction: "Metabolism",
-    system: "In vitro",
-    source: "Curated paper",
+    substance: "5-Fluorouracil",
+    sampleType: "Human stool-derived community",
+    experimentType: "In-vitro incubation",
+    metabolite: "DHFU",
+    source: "PMC9530025 / PRJNA720145",
   },
   {
-    drug: "Digoxin",
-    microbe: "Example strain B",
-    interaction: "Inactivation",
-    system: "In vitro",
-    source: "Curated paper",
+    substance: "5-Fluorouracil",
+    sampleType: "Patient stool sample",
+    experimentType: "Ex vivo metabolism assay",
+    metabolite: "DHFU",
+    source: "PRJNA1169175",
   },
   {
-    drug: "Levodopa",
-    microbe: "Example strain C",
-    interaction: "Transformation",
-    system: "In vitro",
-    source: "Curated paper",
+    substance: "5-Fluorouracil",
+    sampleType: "Single strain incubation",
+    experimentType: "In-vitro incubation",
+    metabolite: "DHFU",
+    source: "PreTA / NAD enzyme reported",
   },
 ]
 
@@ -27,7 +27,7 @@ export default function App() {
     <main className="min-h-screen bg-white text-slate-900">
       <nav className="border-b border-slate-200">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <div className="font-semibold">DrugMicrobiome API</div>
+          <div className="font-semibold">SubstanceMicrobiome API</div>
 
           <a
             href="#waitlist"
@@ -44,13 +44,13 @@ export default function App() {
         </p>
 
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight md:text-6xl">
-          Machine-learning-ready drug–microbiome interaction data.
+          Machine-learning-ready active substance–microbiome interaction data.
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-          Programmatic access to curated drug metabolism and microbiome interaction
-          data, built for ML researchers, microbiome scientists, and drug discovery
-          teams.
+          Programmatic access to curated active substance metabolism and microbiome
+          interaction data, built for ML researchers, microbiome scientists, and
+          drug discovery teams.
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -76,8 +76,9 @@ export default function App() {
             <h2 className="text-xl font-semibold">The problem</h2>
 
             <p className="mt-3 leading-7 text-slate-600">
-              Existing drug–microbiome databases are useful for browsing, but are
-              not designed for automated model training or developer workflows.
+              Existing microbiome interaction datasets are useful for browsing, but
+              their metadata is scattered, inconsistent, and not designed for
+              automated model training or developer workflows.
             </p>
           </div>
 
@@ -85,8 +86,9 @@ export default function App() {
             <h2 className="text-xl font-semibold">The product</h2>
 
             <p className="mt-3 leading-7 text-slate-600">
-              A structured API that normalizes drugs, microbes, interaction types,
-              experimental systems, papers, and metadata into one usable format.
+              An experiment-level API that structures active substances, sample
+              types, experimental systems, metabolites, source papers, sequencing
+              accessions, and metadata into one usable format.
             </p>
           </div>
 
@@ -94,8 +96,8 @@ export default function App() {
             <h2 className="text-xl font-semibold">Initial focus</h2>
 
             <p className="mt-3 leading-7 text-slate-600">
-              Starting with in-vitro drug metabolism studies before expanding into
-              broader microbiome perturbation and antibiotic response datasets.
+              Starting with in-vitro metabolism experiments across single strains,
+              synthetic communities, and stool-derived microbial samples.
             </p>
           </div>
         </div>
@@ -105,22 +107,22 @@ export default function App() {
         <h2 className="text-3xl font-semibold">Example API response</h2>
 
         <p className="mt-3 max-w-2xl text-slate-600">
-          A preview of what programmatic access could look like for ML teams.
+          A preview of what experiment-level programmatic access could look like
+          for ML teams.
         </p>
 
         <pre className="mt-6 overflow-x-auto rounded-2xl bg-slate-950 p-6 text-sm leading-7 text-slate-100">
-{`GET /api/v1/interactions?drug=5-fluorouracil
+{`GET /api/v1/experiments?substance=5-fluorouracil
 
 {
-  "drug": "5-Fluorouracil",
-  "microbe": "Example bacterium",
-  "strain": "Example strain A",
-  "interaction_type": "drug metabolism",
-  "experimental_system": "in vitro",
-  "substrate": "5-Fluorouracil",
-  "metabolite": "example metabolite",
-  "source_paper": "DOI pending",
-  "metadata_status": "curated",
+  "active_substance": "5-Fluorouracil",
+  "primary_metabolite": "DHFU",
+  "interaction_type": "microbial drug metabolism",
+  "experiment_entry_type": "in-vitro incubation",
+  "sample_context": "human stool-derived microbial community",
+  "enzyme_or_operon": "PreTA operon; NAD-dependent enzyme",
+  "source_paper": "PMC9530025",
+  "ena_accession": "PRJNA720145",
   "ml_ready": true
 }`}
         </pre>
@@ -131,18 +133,19 @@ export default function App() {
           <h2 className="text-3xl font-semibold">Sample structured dataset</h2>
 
           <p className="mt-3 max-w-2xl text-slate-600">
-            The real product would convert scattered literature and metadata into
-            clean rows usable for modeling.
+            The real product would convert scattered literature, sequencing links,
+            and experimental metadata into clean experiment-level rows usable for
+            modeling.
           </p>
 
           <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white">
             <table className="w-full text-left text-sm">
               <thead className="bg-slate-100 text-slate-600">
                 <tr>
-                  <th className="px-5 py-4">Drug</th>
-                  <th className="px-5 py-4">Microbe</th>
-                  <th className="px-5 py-4">Interaction</th>
-                  <th className="px-5 py-4">System</th>
+                  <th className="px-5 py-4">Substance</th>
+                  <th className="px-5 py-4">Sample type</th>
+                  <th className="px-5 py-4">Experiment type</th>
+                  <th className="px-5 py-4">Metabolite</th>
                   <th className="px-5 py-4">Source</th>
                 </tr>
               </thead>
@@ -150,10 +153,10 @@ export default function App() {
               <tbody>
                 {sampleRows.map((row, index) => (
                   <tr key={index} className="border-t border-slate-200">
-                    <td className="px-5 py-4 font-medium">{row.drug}</td>
-                    <td className="px-5 py-4">{row.microbe}</td>
-                    <td className="px-5 py-4">{row.interaction}</td>
-                    <td className="px-5 py-4">{row.system}</td>
+                    <td className="px-5 py-4 font-medium">{row.substance}</td>
+                    <td className="px-5 py-4">{row.sampleType}</td>
+                    <td className="px-5 py-4">{row.experimentType}</td>
+                    <td className="px-5 py-4">{row.metabolite}</td>
                     <td className="px-5 py-4">{row.source}</td>
                   </tr>
                 ))}
@@ -170,7 +173,8 @@ export default function App() {
         <h2 className="text-4xl font-semibold">Get early access</h2>
 
         <p className="mt-4 text-lg leading-8 text-slate-600">
-          Join the waitlist for a developer-facing drug–microbiome interaction API.
+          Join the waitlist for a developer-facing active substance–microbiome
+          interaction API.
         </p>
 
         <a
@@ -182,7 +186,7 @@ export default function App() {
       </section>
 
       <footer className="border-t border-slate-200 px-6 py-8 text-center text-sm text-slate-500">
-        Built for ML-ready microbiome data access.
+        Built for ML-ready active substance–microbiome data access.
       </footer>
     </main>
   )
